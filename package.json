@@ -9,7 +9,7 @@
     "publish_module": "npm run build && npx @codersvn/npm-auto-version && npm publish --access public && rm -rf dist",
     "publish_module_only": "npm run build && npm publish --access public && rm -rf dist"
   },
-  "author": "ChungND <nguyenchung26011992@gmail.com>",
+  "author": "Hieupv <hieupv@codersvn.com>",
   "devDependencies": {
     "@babel/cli": "^7.2.0",
     "@babel/core": "^7.2.0",
