@@ -1,12 +1,9 @@
-# Nsilly Notification
+# Nsilly Nexmo Notification Channel
 
-- [Nsilly Notification](#nsilly-notification)
+- [Nsilly Nexmo Notification Channel](#nsilly-nexmo-notification-channel)
   - [Installation](#installation)
-    - [Import provider](#import-provider)
-    - [Update User model](#update-user-model)
+    - [Register nexmo channel](#register-nexmo-channel)
   - [How to use](#how-to-use)
-    - [Register Notification](#register-notification)
-    - [Call Notification](#call-notification)
 
 
 ## Installation
@@ -15,117 +12,50 @@ Install package from NPM
 
 
 ```
-npm install @nsilly/notification
+npm install @nsilly/notification-nexmo-channel
 ```
 
 or
 
 ```
-yarn add @nsilly/notification
+yarn add @nsilly/notification-nexmo-channel
 ```
 
 
-### Import provider
+### Register nexmo channel
 
-Import module in `config/app.js`
-
-```javascript
-import { NotificationServiceProvider } from '@nsilly/notification';
-
-export default {
-  providers: [ 
-    // ... Other Providers
-    NotificationServiceProvider
-  ]
-};
-```
-
-### Update User model
-
-Notifications may be sent in two ways: 
-- Using the notify method of the Notifiable instance
-- Using the Notification facade. 
-  
-First, let's explore using the Notifiable instance:
-
-To do this we have to add extra function to `app/Models/User.js`
+Register nexmo channel in `app/Providers/AppServiceProviders.js`
 
 ```javascript
+import { NotificationService } from '@nsilly/notification';
+import { NexmoChannel } from '@nsilly/notification-nexmo-channel';
 
-import { SNS } from '@nsilly/notification';
+export default class AppServiceProvider extends ServiceProvider {
+  // ...
+  boot() {
+    // ...
+    NotificationService.register([new NexmoChannel({apiKey: YOUR_API_KEY, apiSecret: YOUR_API_SECRET})]);
+  }
+}
 
-export default (sequelize, DataTypes) => {
-  // ... Model defination
-  // Register Model property
-
-  User.prototype.notify = function(notification) {
-    return new Promise((resolve) => {
-      const _this = this;
-      const methods = notification.via();
-      if (Array.isArray(methods) && methods.includes(SNS)) {
-        _this.getDevices().then(devices => {
-          _this.devices = devices;
-          notification.setNotifiable(_this);
-          notification.execute();
-          resolve(true);
-        });
-      } else {
-        notification.setNotifiable(_this);
-        notification.execute();
-        resolve(true);
-      }
-      
-    })
-  };
-
-  return User;
-};
 ```
 
 ## How to use
 
-### Register Notification
+Create your notification that use channel `NEXMO_SMS`
+
 ```javascript
-import { Notification, SNS } from '@nsilly/notification';
+import { Notification } from '@nsilly/notification';
+import { NexmoClient, NEXMO_SMS } from '@nsilly/notification';
 
-export class SendNotificationToAdminWhenOwnerAcceptedCancel extends Notification {
-  constructor(booking, owner_booking, driver) {
-    super();
-    this.booking = booking;
-    this.owner_booking = owner_booking;
-    this.driver = driver;
-  }
-
+export class TestNotification extends Notification {
   via() {
-    return [SNS];
+    return [NEXMO_SMS];
   }
 
-  toSns() {
-    const message = {
-      title: 'Chủ xe chấp nhận hủy chuyến xe',
-      body: `Chủ xe ${this.owner_booking.area_code} ${this.owner_booking.phone_number} chấp nhận cho lái xe ${this.driver.area_code} ${this.driver.phone_number} hủy chuyến xe ${
-        this.booking.id
-      }`,
-      meta: {
-        booking_id: this.booking.id,
-        owner_booking_id: this.owner_booking.id,
-        driver_id: this.driver.id,
-        type: new SendNotificationToAdminWhenOwnerAcceptedCancel().constructor.name
-      }
-    };
-
-    return message;
+  toNexmo(notifiable) {
+    const msg = new NexmoClient().to(notifiable.getPhoneNumber().content('Good morning'));
+    return msg;
   }
 }
-```
-
-### Call Notification
-
-```javascript
-const user = await App.make(UserRepository).findById(1);
-const devices = await App.make(DeviceRepository).where('user_id', user.id).get();
-user.setter('devices', devices);
-
-const notify = new SendNotificationToAdminWhenOwnerAcceptedCancel(booking, owner_booking, driver);
-user.notify(notify);
 ```
