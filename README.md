@@ -46,7 +46,7 @@ Create your notification that use channel `NEXMO_SMS`
 
 ```javascript
 import { Notification } from '@nsilly/notification';
-import { NexmoClient, NEXMO_SMS } from '@nsilly/notification';
+import { NexmoClient, NEXMO_SMS } from '@nsilly/notification-nexmo-channel';
 
 export class TestNotification extends Notification {
   via() {
