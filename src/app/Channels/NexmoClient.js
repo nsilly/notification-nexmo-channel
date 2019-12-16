@@ -14,6 +14,7 @@ export default class NexmoClient {
       throw new Exception('Credential does not correct');
     }
     this._credentials = credentials;
+    return this;
   }
 
   to(to) {
