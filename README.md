@@ -54,7 +54,7 @@ export class TestNotification extends Notification {
   }
 
   toNexmo(notifiable) {
-    const msg = new NexmoClient().to(notifiable.getPhoneNumber().content('Good morning'));
+    const msg = new NexmoClient().to(notifiable.getPhoneNumber()).content('Good morning'));
     return msg;
   }
 }
