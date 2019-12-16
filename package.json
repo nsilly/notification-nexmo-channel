@@ -1,0 +1,35 @@
+{
+  "name": "@nsilly/notification-nexmo-channel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jest --forceExit",
+    "build": "./node_modules/.bin/rimraf dist && ./node_modules/.bin/babel src --out-dir dist/ --ignore \"node_modules\" --copy-files",
+    "publish_module": "npm run build && npx @codersvn/npm-auto-version && npm publish --access public && rm -rf dist",
+    "publish_module_only": "npm run build && npm publish --access public && rm -rf dist"
+  },
+  "author": "ChungND <nguyenchung26011992@gmail.com>",
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "babel-eslint": "^10.0.3",
+    "babel-plugin-transform-builtin-extend": "^1.1.2",
+    "eslint": "^6.7.2",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "rimraf": "^3.0.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.2.0",
+    "@nsilly/notification": "^2",
+    "nexmo": "*"
+  }
+}
