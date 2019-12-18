@@ -7,13 +7,24 @@ export default class NexmoClient {
     this._to = undefined;
     this._content = undefined;
     this._credentials = undefined;
+    this._from = process.env.NEXMO_SENDER_NUMBER;
+    this._override_from_number = false;
   }
 
   setCredentials(credentials) {
     if (credentials.apiKey === undefined || credentials.apiSecret === undefined) {
       throw new Exception('Credential does not correct');
     }
+    if (credentials.defaultSenderNumber !== undefined && this._override_from_number === false) {
+      this._from = credentials.credentials.defaultSenderNumber;
+    }
     this._credentials = credentials;
+    return this;
+  }
+
+  from(number) {
+    this._from = number;
+    this._override_from_number = true;
     return this;
   }
 
@@ -33,7 +44,7 @@ export default class NexmoClient {
   send() {
     const nexmo = new Nexmo(this._credentials);
     return new Promise((resolve, reject) => {
-      nexmo.message.sendSms(process.env.NEXMO_SENDER_NUMBER, this._to, this._content, (err, response) => {
+      nexmo.message.sendSms(this._from, this._to, this._content, (err, response) => {
         if (err) {
           reject(err);
         } else {
