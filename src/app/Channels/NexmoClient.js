@@ -18,7 +18,7 @@ export default class NexmoClient {
     if (credentials.defaultSenderNumber !== undefined && this._override_from_number === false) {
       this._from = credentials.credentials.defaultSenderNumber;
     }
-    this._credentials = credentials;
+    this._credentials = _.omit(credentials, ['defaultSenderNumber']);
     return this;
   }
 
