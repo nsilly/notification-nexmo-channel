@@ -798,9 +798,9 @@ acorn-jsx@^5.1.0:
   integrity sha512-tMUqwBWfLFbJbizRmEcWSLw6HnFzfdJs2sOJEOwwtVPMoH/0Ay+E703oZz78VSXZiiDcZrQ5XKjPIUQixhmgVw==
 
 acorn@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.1.0.tgz#949d36f2c292535da602283586c2477c57eb2d6c"
-  integrity sha512-kL5CuoXA/dgxlBbVrflsflzQ3PAas7RYZB52NOm/6839iVYJgKMJ3cQJD+t2i5+qFa8h3MDpEOJiS64E8JLnSQ==
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.1.1.tgz#e35668de0b402f359de515c5482a1ab9f89a69bf"
+  integrity sha512-add7dgA5ppRPxCFJoAGfMDi7PIBXq1RtGo7BhbLaxwrXPOmw8gq48Y9ozT01hUKy9byMjlR20EJhu5zlkErEkg==
 
 agentkeepalive@^3.4.1:
   version "3.5.2"
@@ -2721,10 +2721,10 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-nexmo@^2.5.2:
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/nexmo/-/nexmo-2.5.2.tgz#d5ff9b64a4b3e9b54d76e52499a788f36c371398"
-  integrity sha512-nxlTAh/XgRWnRhfPN+AQeM6vSOU+RLJIMass38heY0ertcrkTLW1Wo73ASx4ycqsWIE6J3EP4SO0OZRtNFgaxA==
+nexmo@*:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/nexmo/-/nexmo-2.6.0.tgz#83149655e11a92623671b8e38a10926aa270d9c5"
+  integrity sha512-d5+9oDWw0Kihg8qQ7/jvwfHuNSXSHWA0dXFBSZRM+2ml0lFviXSJzg3hRLLMEyjgAeMIQZxjcIMiRdTPx1ULeQ==
   dependencies:
     jsonwebtoken "^8.4.0"
     request "^2.88.0"
